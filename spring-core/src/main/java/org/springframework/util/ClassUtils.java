@@ -954,6 +954,10 @@ public abstract class ClassUtils {
 	}
 
 	/**
+	 * 获取类的名称
+	 * 比如 com.zhangam.example.service.UserService -> UserService
+	 * 比如 com.zhangam.example.service.UserService$$Memeber -> UserService.Member
+	 *
 	 * Get the class name without the qualified package name.
 	 * @param className the className to get the short name for
 	 * @return the class name of the class without the package name

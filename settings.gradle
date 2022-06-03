@@ -1,5 +1,8 @@
 pluginManagement {
 	repositories {
+		// 新增2个阿里云代理地址
+		maven { url "https://maven.aliyun.com/repository/gradle-plugin" }
+		maven { url "https://maven.aliyun.com/repository/public" }
 		mavenCentral()
 		gradlePluginPortal()
 		maven { url "https://repo.spring.io/release" }
@@ -55,3 +58,5 @@ settings.gradle.projectsLoaded {
 		}
 	}
 }
+include 'spring-example'
+

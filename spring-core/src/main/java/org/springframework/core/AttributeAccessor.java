@@ -22,6 +22,8 @@ import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
+ * 接口，定义了一个通用契约，用于在任意对象之间附加和访问元数据。
+ * 实现了此接口表示可以操作元素据
  * Interface defining a generic contract for attaching and accessing metadata
  * to/from arbitrary objects.
  *

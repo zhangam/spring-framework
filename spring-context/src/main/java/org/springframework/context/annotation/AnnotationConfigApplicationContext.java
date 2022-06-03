@@ -65,6 +65,7 @@ public class AnnotationConfigApplicationContext extends GenericApplicationContex
 	 * through {@link #register} calls and then manually {@linkplain #refresh refreshed}.
 	 */
 	public AnnotationConfigApplicationContext() {
+		// 记录启动步骤，用于监控
 		StartupStep createAnnotatedBeanDefReader = this.getApplicationStartup().start("spring.context.annotated-bean-reader.create");
 		this.reader = new AnnotatedBeanDefinitionReader(this);
 		createAnnotatedBeanDefReader.end();

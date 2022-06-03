@@ -17,6 +17,8 @@
 package org.springframework.core.metrics;
 
 /**
+ * 应用启动接口，用于轻量级指标监控，比如springboot中可以用此接口来查看各个步骤的耗时
+ * <p>
  * Instruments the application startup phase using {@link StartupStep steps}.
  * <p>The core container and its infrastructure components can use the {@code ApplicationStartup}
  * to mark steps during the application startup and collect data about the execution context
