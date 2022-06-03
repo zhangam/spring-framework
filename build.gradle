@@ -248,6 +248,9 @@ configure(allprojects) { project ->
 			cacheChangingModulesFor 0, "seconds"
 		}
 		repositories {
+			// 新增2个阿里云代理地址
+			maven { url "https://maven.aliyun.com/repository/public" }
+			maven { url "https://maven.aliyun.com/repository/spring" }
 			mavenCentral()
 			maven { url "https://repo.spring.io/libs-spring-framework-build" }
 			maven { url "https://repo.spring.io/milestone"}
