@@ -123,6 +123,7 @@ public class ProxyProcessorSupport extends ProxyConfig implements Ordered, BeanC
 	}
 
 	/**
+	 * 确定给定的接口是否只是容器回调，因此不被认为是合理的代理接口。
 	 * Determine whether the given interface is just a container callback and
 	 * therefore not to be considered as a reasonable proxy interface.
 	 * <p>If no reasonable proxy interface is found for a given bean, it will get
@@ -136,8 +137,10 @@ public class ProxyProcessorSupport extends ProxyConfig implements Ordered, BeanC
 	}
 
 	/**
+	 * 确定给定的接口是否是众所周知的内部语言接口，因此不被认为是合理的代理接口。
 	 * Determine whether the given interface is a well-known internal language interface
 	 * and therefore not to be considered as a reasonable proxy interface.
+	 *
 	 * <p>If no reasonable proxy interface is found for a given bean, it will get
 	 * proxied with its full target class, assuming that as the user's intention.
 	 * @param ifc the interface to check

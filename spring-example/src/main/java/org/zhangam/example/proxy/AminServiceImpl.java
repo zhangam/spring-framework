@@ -7,6 +7,7 @@ package org.zhangam.example.proxy;
  */
 public class AminServiceImpl implements AminService{
 
+	@Override
 	public void getName() {
 		System.out.println("This is Amin.");
 	}

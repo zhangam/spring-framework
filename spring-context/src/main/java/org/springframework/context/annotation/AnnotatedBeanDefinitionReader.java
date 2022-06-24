@@ -251,6 +251,8 @@ public class AnnotatedBeanDefinitionReader {
 			@Nullable BeanDefinitionCustomizer[] customizers) {
 
 		AnnotatedGenericBeanDefinition abd = new AnnotatedGenericBeanDefinition(beanClass);
+		// 注册bean的时候看看此类上面有没有注解@Conditional接口；metadata.isAnnotated(Conditional.class.getName())
+		// 有的话看看这个bean是否符合条件，不符合条件的bean跳过
 		if (this.conditionEvaluator.shouldSkip(abd.getMetadata())) {
 			return;
 		}

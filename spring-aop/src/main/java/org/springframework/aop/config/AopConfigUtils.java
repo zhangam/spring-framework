@@ -46,12 +46,14 @@ import org.springframework.util.Assert;
 public abstract class AopConfigUtils {
 
 	/**
+	 * 代理对象创建者（APC）的bean名称，写死的
 	 * The bean name of the internally managed auto-proxy creator.
 	 */
 	public static final String AUTO_PROXY_CREATOR_BEAN_NAME =
 			"org.springframework.aop.config.internalAutoProxyCreator";
 
 	/**
+	 * APC的实现类，顺序代表优先级，后面的会覆盖前面的
 	 * Stores the auto proxy creator classes in escalation order.
 	 */
 	private static final List<Class<?>> APC_PRIORITY_LIST = new ArrayList<>(3);

@@ -20,6 +20,7 @@ import org.springframework.aop.TargetSource;
 import org.springframework.lang.Nullable;
 
 /**
+ * 实现了此接口，可以为一些特殊的bean创建特殊的target source，比如连接池target source。
  * Implementations can create special target sources, such as pooling target
  * sources, for particular beans. For example, they may base their choice
  * on attributes, such as a pooling attribute, on the target class.

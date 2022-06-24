@@ -1,4 +1,4 @@
-package org.zhangam.example.service;
+package org.zhangam.example.demo.service;
 
 import org.springframework.stereotype.Component;
 

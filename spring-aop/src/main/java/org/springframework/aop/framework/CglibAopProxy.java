@@ -630,6 +630,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 
 
 	/**
+	 * 拦截器专门用于冻结的静态代理上的建议方法。
 	 * Interceptor used specifically for advised methods on a frozen, static proxy.
 	 */
 	private static class FixedChainStaticTargetInterceptor implements MethodInterceptor, Serializable {
@@ -664,6 +665,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 
 
 	/**
+	 * 通用 AOP 回调。当目标是动态的或代理未冻结时使用
 	 * General purpose AOP callback. Used when the target is dynamic or when the
 	 * proxy is not frozen.
 	 */
@@ -691,6 +693,9 @@ class CglibAopProxy implements AopProxy, Serializable {
 				// Get as late as possible to minimize the time we "own" the target, in case it comes from a pool...
 				target = targetSource.getTarget();
 				Class<?> targetClass = (target != null ? target.getClass() : null);
+				// 获取该代理方法上所有的拦截方法({@link org.aopalliance.intercept.MethodInterceptor})
+				// 比如方法上有@Transactional注解还有@Cacheable(缓存)注解
+				// 将所有拦截方法获取成集合组成一个拦截链chain
 				List<Object> chain = this.advised.getInterceptorsAndDynamicInterceptionAdvice(method, targetClass);
 				Object retVal;
 				// Check whether we only have one InvokerInterceptor: that is,
@@ -705,6 +710,7 @@ class CglibAopProxy implements AopProxy, Serializable {
 				}
 				else {
 					// We need to create a method invocation...
+					// 有拦截方法，执行动态拦截方法
 					retVal = new CglibMethodInvocation(proxy, target, method, args, targetClass, chain, methodProxy).proceed();
 				}
 				retVal = processReturnType(proxy, target, method, retVal);

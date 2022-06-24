@@ -246,8 +246,8 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 	@Override
 	public Object postProcessBeforeInstantiation(Class<?> beanClass, String beanName) {
+		// 该方法就是判断要不要加上&符号来区分是FactoryBean的本身bean名称还是,FactoryBean获取到的bean的名称！
 		Object cacheKey = getCacheKey(beanClass, beanName);
-
 		if (!StringUtils.hasLength(beanName) || !this.targetSourcedBeans.contains(beanName)) {
 			if (this.advisedBeans.containsKey(cacheKey)) {
 				return null;
@@ -258,6 +258,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 			}
 		}
 
+		// 提前创建代理对象
 		// Create proxy here if we have a custom TargetSource.
 		// Suppresses unnecessary default instantiation of the target bean:
 		// The TargetSource will handle target instances in a custom fashion.
@@ -288,8 +289,12 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	@Override
 	public Object postProcessAfterInitialization(@Nullable Object bean, String beanName) {
 		if (bean != null) {
+			// 该方法就是判断要不要加上&符号来区分是FactoryBean的本身bean名称还是,FactoryBean获取到的bean的名称！
 			Object cacheKey = getCacheKey(bean.getClass(), beanName);
+			// 如果相等，说明这个bean还没有创建好，或者正在创建？？
+			// 这个earlyProxyReferences是一个ConcurrentHashMap<>(16)，里面存放的是已经生成的代理（三级缓存可能会提前生成代理），如果有不会重复生成。
 			if (this.earlyProxyReferences.remove(cacheKey) != bean) {
+				// 生成代理逻辑
 				return wrapIfNecessary(bean, beanName, cacheKey);
 			}
 		}
@@ -298,6 +303,8 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 
 
 	/**
+	 * 其实就是在原有的名字前面加不加&符号，如果是FactoryBean的子类
+	 * 则加上&代表FactoryBean的bean名称，用来区分FactoryBean的bean名称和FactoryBean.getBean()的名称。
 	 * Build a cache key for the given bean class and bean name.
 	 * <p>Note: As of 4.2.3, this implementation does not return a concatenated
 	 * class/name String anymore but rather the most efficient cache key possible:
@@ -319,6 +326,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	}
 
 	/**
+	 * 如果需要，包装(Wrap)被提供的bean
 	 * Wrap the given bean if necessary, i.e. if it is eligible for being proxied.
 	 * @param bean the raw bean instance
 	 * @param beanName the name of the bean
@@ -326,6 +334,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 	 * @return a proxy wrapping the bean, or the raw bean instance as-is
 	 */
 	protected Object wrapIfNecessary(Object bean, String beanName, Object cacheKey) {
+		// bean名称不为空，且不是提前创建的bean
 		if (StringUtils.hasLength(beanName) && this.targetSourcedBeans.contains(beanName)) {
 			return bean;
 		}
@@ -338,6 +347,7 @@ public abstract class AbstractAutoProxyCreator extends ProxyProcessorSupport
 		}
 
 		// Create proxy if we have advice.
+		// 如果方法上有advice（建议/增强），则创建代理
 		Object[] specificInterceptors = getAdvicesAndAdvisorsForBean(bean.getClass(), beanName, null);
 		if (specificInterceptors != DO_NOT_PROXY) {
 			this.advisedBeans.put(cacheKey, Boolean.TRUE);

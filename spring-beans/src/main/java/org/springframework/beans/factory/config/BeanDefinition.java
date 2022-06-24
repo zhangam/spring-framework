@@ -41,6 +41,8 @@ import org.springframework.lang.Nullable;
 public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 	/**
+	 * 标准单例范围的范围标识符：“单例”。
+	 * 请注意，扩展 bean 工厂可能支持更多范围。
 	 * Scope identifier for the standard singleton scope: {@value}.
 	 * <p>Note that extended bean factories might support further scopes.
 	 * @see #setScope
@@ -49,6 +51,8 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	String SCOPE_SINGLETON = ConfigurableBeanFactory.SCOPE_SINGLETON;
 
 	/**
+	 * 标准原型范围的范围标识符：“原型”。
+	 * 请注意，扩展 bean 工厂可能支持更多范围。
 	 * Scope identifier for the standard prototype scope: {@value}.
 	 * <p>Note that extended bean factories might support further scopes.
 	 * @see #setScope
@@ -58,7 +62,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 
 
 	/**
-	 * bean definition角色--用户定义的bean
+	 * 指示 {@code BeanDefinition} 是应用程序主要部分的角色提示。通常对应于用户定义的 bean。
 	 *
 	 * Role hint indicating that a {@code BeanDefinition} is a major part
 	 * of the application. Typically corresponds to a user-defined bean.
@@ -66,8 +70,7 @@ public interface BeanDefinition extends AttributeAccessor, BeanMetadataElement {
 	int ROLE_APPLICATION = 0;
 
 	/**
-	 * bean definition角色-支持一些大的配置，典型的比如是掩码中的ComponentDefinition
-	 *
+	 * 角色提示表明BeanDefinition是一些较大配置的支持部分，通常是外部org.springframework.beans.factory.parsing.ComponentDefinition 。 SUPPORT bean 被认为足够重要，以便在更仔细地查看特定org.springframework.beans.factory.parsing.ComponentDefinition时意识到这一点，但在查看应用程序的整体配置时则不然
 	 * Role hint indicating that a {@code BeanDefinition} is a supporting
 	 * part of some larger configuration, typically an outer
 	 * {@link org.springframework.beans.factory.parsing.ComponentDefinition}.
