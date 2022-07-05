@@ -440,6 +440,7 @@ public @interface Configuration {
 	String value() default "";
 
 	/**
+	 * 是否共享bean，如果true，先看看单例中有没有，没有才创建，false标识每次都是new的
 	 * Specify whether {@code @Bean} methods should get proxied in order to enforce
 	 * bean lifecycle behavior, e.g. to return shared singleton bean instances even
 	 * in case of direct {@code @Bean} method calls in user code. This feature

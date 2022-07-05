@@ -7,16 +7,14 @@ import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.cache.concurrent.ConcurrentMapCacheManager;
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.EnableAspectJAutoProxy;
-import org.springframework.core.io.ClassPathResource;
+import org.springframework.context.annotation.*;
 import org.springframework.core.io.Resource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import org.springframework.transaction.TransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
+import org.zhangam.example.transaction.imports.TestDeferredImportSelector;
+import org.zhangam.example.transaction.imports.TestImportSelector;
 
 import javax.sql.DataSource;
 
@@ -27,13 +25,14 @@ import javax.sql.DataSource;
  * @date 2022/6/20
  */
 @Configuration
+// 开启缓存
+@EnableCaching
 // 开启事务
 @EnableTransactionManagement
 @ComponentScan("org.zhangam.example.transaction")
 @MapperScan("org.zhangam.example.transaction.mapper")
-// 开启缓存
-@EnableCaching
 @EnableAspectJAutoProxy
+@Import({TestImportSelector.class, TestDeferredImportSelector.class})
 public class MyBatisConfig {
 
 	@Bean

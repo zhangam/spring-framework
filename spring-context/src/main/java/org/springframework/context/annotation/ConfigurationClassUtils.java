@@ -123,10 +123,12 @@ abstract class ConfigurationClassUtils {
 		}
 
 		Map<String, Object> config = metadata.getAnnotationAttributes(Configuration.class.getName());
-		if (config != null && !Boolean.FALSE.equals(config.get("proxyBeanMethods"))) {
+		if (config != null && Boolean.TRUE.equals(config.get("proxyBeanMethods"))) {
+			// full模式，共享bean，允许bean间调用，没有创建，有就直接用
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_FULL);
 		}
 		else if (config != null || isConfigurationCandidate(metadata)) {
+			// lite模式，每次都是new
 			beanDef.setAttribute(CONFIGURATION_CLASS_ATTRIBUTE, CONFIGURATION_CLASS_LITE);
 		}
 		else {

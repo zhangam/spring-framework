@@ -533,7 +533,7 @@ class ConfigurationClassParser {
 	 * annotation.
 	 * @param sourceClass the class to search
 	 * @param imports the imports collected so far
-	 * @param visited used to track visited classes to prevent infinite recursion
+	 * @param visited used to track visited classes to prevent infinite recursion 缓存已经读取过的类，繁殖死循环
 	 * @throws IOException if there is any problem reading metadata from the named class
 	 */
 	private void collectImports(SourceClass sourceClass, Set<SourceClass> imports, Set<SourceClass> visited)
